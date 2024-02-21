@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { QueueEntry } from '@/types/queueEntry'
+import { Queue } from '@/types/queue'
 
-export default function QueueCard({ queue }: { queue: QueueEntry }) {
+export default function QueueCard({ queue }: { queue: Queue }) {
   return (
     <div className="p-6 bg-white rounded-2xl w-[600px] min-h-[300px]">
       <div className="flex justify-between items-center">

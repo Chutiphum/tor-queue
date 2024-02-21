@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import { Shop } from '@/types/shop'
+import { Room } from '@/types/room'
 
-export default function ListCard({ shop }: { shop: Shop }) {
+export default function ListCard({ room }: { room: Room }) {
   return (
     <div className="bg-white px-8 py-4 rounded-xl flex justify-between">
       <div className="flex items-center gap-4">
@@ -11,8 +11,8 @@ export default function ListCard({ shop }: { shop: Shop }) {
           </div>
         </div>
         <div>
-          <p className="text-xl font-bold">{shop.title}</p>
-          <p>{shop.description}</p>
+          <p className="text-xl font-bold">{room.title}</p>
+          <p>{room.description}</p>
         </div>
       </div>
       <div className="flex flex-col justify-center items-end text-black/50">

@@ -7,7 +7,7 @@ export default function ShopList() {
     res.push(
       <ListCard
         key={i}
-        shop={{
+        room={{
           id: i,
           title: 'Your mom ' + i,
           time: new Date(),

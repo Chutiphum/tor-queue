@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import QueueList from "./QueueList"
-import { QueueEntry } from '@/types/queueEntry'
+import { Queue } from '@/types/queue'
 
 export default function Page() {
   return (
@@ -38,7 +38,7 @@ export default function Page() {
   )
 }
 
-const mock: QueueEntry[] = [
+const mock: Queue[] = [
   {
     id: 0,
     number: 50,
