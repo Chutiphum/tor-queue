@@ -15,7 +15,7 @@ generator client {
 }
 
 model Room {
-  qId         Int      @id @default(autoincrement())
+  rId         Int      @id @default(autoincrement())
   title       String   @unique
   description String?
   startTime   DateTime
@@ -28,9 +28,9 @@ model Room {
 }
 
 model Queue {
-  eId          Int       @id @default(autoincrement())
-  room         Room      @relation(fields: [qId], references: [qId])
-  qId          Int
+  qId          Int       @id @default(autoincrement())
+  room         Room      @relation(fields: [rId], references: [rId])
+  rId          Int
   user         User      @relation(fields: [uId], references: [uId])
   uId          Int
   startTime    DateTime
