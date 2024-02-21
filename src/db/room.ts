@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient, Room } from '@prisma/client'
+import { Prisma, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export async function getAllRooms() {
@@ -6,7 +6,7 @@ export async function getAllRooms() {
     const rooms = await prisma.room.findMany()
     return rooms
   } catch (err) {
-    console.error(err)
+    throw err
   } finally {
     await prisma.$disconnect()
   }
@@ -14,10 +14,16 @@ export async function getAllRooms() {
 
 export async function getOneRoom(where: Prisma.RoomWhereInput) {
   try {
-    const rooms = await prisma.room.findFirst({ where })
-    return rooms
+    const room = await prisma.room.findFirst({
+      where,
+      relationLoadStrategy: 'join',
+      include: {
+        queues: true,
+      },
+    })
+    return room
   } catch (err) {
-    console.error(err)
+    throw err
   } finally {
     await prisma.$disconnect()
   }
