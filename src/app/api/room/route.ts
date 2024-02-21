@@ -9,6 +9,13 @@ export async function GET(request: NextRequest) {
     return Response.error()
   }
 
-  const data = await getOneRoom({ rId: parseInt(roomId) })
-  return Response.json(data)
+  try {
+    const data = await getOneRoom({ rId: parseInt(roomId) })
+    return Response.json(data)
+  } catch (err) {
+    console.error(err)
+    return new Response('Error', {
+      status: 500
+    })
+  }
 }
