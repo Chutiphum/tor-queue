@@ -1,14 +1,10 @@
 'use client'
 
 import { useState } from "react"
-import { Queue } from "@/types/queue"
+import { QueueEntry } from '@/types/queueEntry'
 import QueueCard from "./QueueCard"
 
-export default function QueueList({
-  queues
-}: {
-  queues: Queue[]
-}) {
+export default function QueueList({ queues }: { queues: QueueEntry[] }) {
   const [keyword, setKeyword] = useState<string>('')
 
   return (
