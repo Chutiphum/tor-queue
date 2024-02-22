@@ -3,7 +3,12 @@ const prisma = new PrismaClient()
 
 export async function getAllRooms() {
   try {
-    const rooms = await prisma.room.findMany()
+    const rooms = await prisma.room.findMany({
+      relationLoadStrategy: 'join',
+      include: {
+        queues: true,
+      },
+    })
     return rooms
   } catch (err) {
     throw err

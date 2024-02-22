@@ -3,7 +3,12 @@ const prisma = new PrismaClient()
 
 export async function getAllQueues() {
   try {
-    const queues = await prisma.queue.findMany()
+    const queues = await prisma.queue.findMany({
+      include: {
+        user: true,
+        room: true,
+      },
+    })
     return queues
   } catch (err) {
     throw err
