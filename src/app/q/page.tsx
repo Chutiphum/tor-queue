@@ -2,8 +2,11 @@ import Image from "next/image"
 import Link from "next/link"
 import QueueList from "./QueueList"
 import { Queue } from '@/types/queue'
+import { getAllQueues } from '@/db/queue'
 
-export default function Page() {
+export default async function Page() {
+  const data = await getAllQueues()
+
   return (
     <main className="flex">
       <img src="/bg.jpg" alt="" className="-z-50 fixed top-0 left-0" />
@@ -32,7 +35,7 @@ export default function Page() {
         </div>
       </div>
       <div className="w-full text-black p-16 text-4xl space-y-8">
-        <QueueList queues={mock} />
+        <QueueList queues={data} />
       </div>
     </main>
   )

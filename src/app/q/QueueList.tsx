@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from "react"
-import { Queue } from '@/types/queue'
+import { useState } from 'react'
 import QueueCard from './QueueCard'
+import { Queue } from '@prisma/client'
 
 export default function QueueList({ queues }: { queues: Queue[] }) {
   const [keyword, setKeyword] = useState<string>('')
@@ -21,13 +21,13 @@ export default function QueueList({ queues }: { queues: Queue[] }) {
 
       <h1>รายการคิวที่กำลังต่อ</h1>
       {queues.map(q =>
-        !q.finished ? <QueueCard key={q.id} queue={q} /> : null
+        !q.finished ? <QueueCard key={q.qId} queue={q} /> : null
       )}
       <br />
 
       <h1>รายการคิวที่เสร็จแล้ว</h1>
       {queues.map(q =>
-        q.finished ? <QueueCard key={q.id} queue={q} /> : null
+        q.finished ? <QueueCard key={q.qId} queue={q} /> : null
       )}
       <br />
     </main>

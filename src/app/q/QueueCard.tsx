@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { Queue } from '@/types/queue'
+import { Queue } from '@prisma/client'
+import Image from 'next/image'
 
 export default function QueueCard({ queue }: { queue: Queue }) {
   return (
@@ -13,7 +13,8 @@ export default function QueueCard({ queue }: { queue: Queue }) {
           <p className="text-end text-6xl">50</p>
         </div>
       </div>
-      <h1 className="mt-4">{queue.shopTitle}</h1>
+      {/* @ts-ignore */}
+      <h1 className="mt-4">{queue.room.title}</h1>
       <h2 className="text-2xl">
         เวลา {zFill(queue.startTime.getHours())}:
         {zFill(queue.startTime.getMinutes())} -{' '}
@@ -24,10 +25,8 @@ export default function QueueCard({ queue }: { queue: Queue }) {
         {months[queue.endTime.getMonth()]}
       </h2>
       <p className="text-lg text-gray-600 mt-4">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet eos
-        molestiae, laudantium, distinctio adipisci mollitia et minus sapiente
-        esse, nihil quae optio provident totam magni. Commodi inventore ea hic
-        tempora!
+        {/* @ts-ignore */}
+        {queue.room.description}
       </p>
     </div>
   )
@@ -38,7 +37,13 @@ function zFill(n: number) {
 }
 
 const days = [
-  'อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'
+  'อาทิตย์',
+  'จันทร์',
+  'อังคาร',
+  'พุธ',
+  'พฤหัสบดี',
+  'ศุกร์',
+  'เสาร์',
 ]
 
 const months = [
@@ -53,5 +58,5 @@ const months = [
   'ก.ย.',
   'ต.ค.',
   'พ.ย.',
-  'ธ.ค.'
+  'ธ.ค.',
 ]
