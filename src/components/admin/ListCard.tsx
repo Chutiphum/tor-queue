@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Room } from '@/types/room'
+import { Room } from '@prisma/client'
 
 export default function ListCard({ room }: { room: Room }) {
   return (

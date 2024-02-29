@@ -8,10 +8,15 @@ export default function ShopList() {
       <ListCard
         key={i}
         room={{
-          id: i,
+          rId: i,
           title: 'Your mom ' + i,
-          time: new Date(),
           description: 'Lorem ipsum',
+          startTime: new Date(),
+          endTime: new Date(),
+          images: [],
+          enabled: true,
+          createdAt: new Date(2024, 0, 1),
+          updatedAt: new Date(2024, 0, 1),
         }}
       />
     )
