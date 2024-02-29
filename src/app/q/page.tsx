@@ -1,7 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
 import QueueList from "./QueueList"
-import { Queue } from '@/types/queue'
 import { getAllQueues } from '@/db/queue'
 
 export default async function Page() {
@@ -40,22 +39,3 @@ export default async function Page() {
     </main>
   )
 }
-
-const mock: Queue[] = [
-  {
-    id: 0,
-    number: 50,
-    shopTitle: 'ก๋วยเตี๋ยว Kenny',
-    finished: true,
-    startTime: new Date(2024, 0, 1, 9, 0),
-    endTime: new Date(2024, 1, 25, 18, 0),
-  },
-  {
-    id: 1,
-    number: 51,
-    shopTitle: 'แม่มึง',
-    finished: false,
-    startTime: new Date(2024, 0, 1, 9, 0),
-    endTime: new Date(2024, 1, 25, 18, 0),
-  },
-]
