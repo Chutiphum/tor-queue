@@ -16,6 +16,22 @@ export default function AddRoomModal() {
   const defaultRange = { from: defaultFrom, to: defaultTo, }
   const [selectedDayRange, setSelectedDayRange] = useState(defaultRange)
 
+  const resetInput = () => {
+    setTitle('')
+    setQLimit(0)
+    setDescription('')
+    setSelectedDayRange(defaultRange)
+  }
+
+  const handleSubmit = async () => {
+    console.log('kill ypurself')
+    // await something()
+    // maybe add notification
+    // resetInput()
+    // @ts-ignore
+    document.getElementById('add_room_model').close()
+  }
+
   return (
     <dialog id="add_room_model" className="modal modal-bottom sm:modal-middle overflow-scroll">
       <div className="modal-box">
@@ -67,9 +83,9 @@ export default function AddRoomModal() {
         <div className="modal-action">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
-            <button className="btn shadow-none border-none font-medium rounded-[50px] text-lg">ยกเลิก</button>
+            <button className="btn shadow-none border-none font-medium rounded-[50px] text-lg" onClick={resetInput}>ยกเลิก</button>
           </form>
-          <button className="btn bg-primary hover:bg-secondary shadow-none border-none font-medium rounded-[50px] text-lg">
+          <button className="btn bg-primary hover:bg-secondary shadow-none border-none font-medium rounded-[50px] text-lg" onClick={handleSubmit}>
             เพิ่มห้องคิว
           </button>
         </div>
