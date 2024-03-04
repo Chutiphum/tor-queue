@@ -5,6 +5,7 @@ import { roomSchema } from "@/schema/room";
 export async function POST(request: NextRequest, response: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const body = await request.json()
+  const formData = await request.formData()
 
   try {
     roomSchema.parse(body)

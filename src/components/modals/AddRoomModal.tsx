@@ -1,6 +1,7 @@
-import { Dispatch, SetStateAction, useState, forwardRef } from "react"
-import 'react-modern-calendar-datepicker/lib/DatePicker.css'
-import { Calendar } from "react-modern-calendar-datepicker"
+/* eslint-disable @next/next/no-img-element */
+import { Dispatch, SetStateAction, useState, forwardRef, ChangeEvent } from "react"
+import '@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css'
+import { Calendar } from '@hassanmojab/react-modern-calendar-datepicker'
 import dayjs from "dayjs"
 import 'dayjs/locale/th'
 dayjs.locale('th')
@@ -12,7 +13,7 @@ export default function AddRoomModal() {
   const [qLimit, setQLimit] = useState<number>(0)
   const [description, setDescription] = useState<string>('')
   const [enabled, setEnabled] = useState(false)
-  const [files, setFiles] = useState<string[]>([])
+  const [files, setFiles] = useState<File[]>([])
 
   const today = new Date()
   const defaultFrom = { year: today.getFullYear(), month: today.getMonth(), day: today.getDate(), }
@@ -25,6 +26,15 @@ export default function AddRoomModal() {
     setQLimit(0)
     setDescription('')
     setSelectedDayRange(defaultRange)
+    setFiles([])
+  }
+
+  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const items = Array.from(e.target.files)
+      setFiles(items)
+      items.forEach(i => console.log(i))
+    }
   }
 
   const handleSubmit = async () => {
@@ -46,6 +56,7 @@ export default function AddRoomModal() {
     })
 
     console.log(success, data, error)
+    console.log(files)
     // await something()
     // maybe add notification
     // resetInput()
@@ -128,22 +139,22 @@ export default function AddRoomModal() {
 
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">Pick a file</span>
-              <span className="label-text-alt">Alt label</span>
+              <span className="label-text">ภาพประกอบ</span>
+              <span className="label-text-alt">{files.length} รูป</span>
             </div>
             <input
               type="file"
+              accept="image/*"
+              multiple
               className="file-input file-input-bordered w-full"
-              onChange={e => setFiles([ ...files, e.target.value ])}
+              onChange={handleFile}
             />
             <div className="label">
-              <span className="label-text-alt">Alt label</span>
-              <span className="label-text-alt">Alt label</span>
+              <span className="label-text-alt">รองรับภาพประเทภ .jpg และ .png ขนาดไม่เกิน x MB</span>
             </div>
           </label>
 
-          <ImageCarousel files={[]} />
-          <p>{JSON.stringify(files)}</p>
+          <ImageCarousel files={files} />
 
           <div className="form-control">
             <label className="label cursor-pointer">
@@ -202,69 +213,20 @@ function QueueItem({
   )
 }
 
-function ImageCarousel(files: File[]) {
-  return (
-    <div className="carousel rounded-box h-64 gap-2">
-      {files.length ? files.map(item => (
+function ImageCarousel({ files }: { files: File[] }) {
+  return files ? (
+    <div className="carousel rounded-box h-48 gap-2 bg-gray-100">
+      {files.map(item => (
         <div key={item.name} className="carousel-item">
           <img
-            src={item.name}
+            src={URL.createObjectURL(item)}
             alt="Burger"
             className="rounded-2xl"
           />
         </div>
-      )) : null}
-      <div className="carousel-item">
-        <img
-          src="https://daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.jpg"
-          alt="Burger"
-          className="rounded-2xl"
-        />
-      </div>
-      <div className="carousel-item">
-        <img
-          src="https://daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.jpg"
-          alt="Burger"
-          className="rounded-2xl"
-        />
-      </div>
-      <div className="carousel-item">
-        <img
-          src="https://daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.jpg"
-          alt="Burger"
-          className="rounded-2xl"
-        />
-      </div>
-      <div className="carousel-item">
-        <img
-          src="https://daisyui.com/images/stock/photo-1494253109108-2e30c049369b.jpg"
-          alt="Burger"
-          className="rounded-2xl"
-        />
-      </div>
-      <div className="carousel-item">
-        <img
-          src="https://daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.jpg"
-          alt="Burger"
-          className="rounded-2xl"
-        />
-      </div>
-      <div className="carousel-item">
-        <img
-          src="https://daisyui.com/images/stock/photo-1559181567-c3190ca9959b.jpg"
-          alt="Burger"
-          className="rounded-2xl"
-        />
-      </div>
-      <div className="carousel-item">
-        <img
-          src="https://daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.jpg"
-          alt="Burger"
-          className="rounded-2xl"
-        />
-      </div>
+      ))}
     </div>
-  )
+  ) : null
 }
 
 const myCustomLocale = {
