@@ -9,8 +9,9 @@ export default function QueueList({ queues }: { queues: Queue[] }) {
   const [searchedList, setSearchedList] = useState<Queue[]>([])
 
   useEffect(() => {
+    // @ts-ignore
     setSearchedList(queues.filter(i => i.room.title.includes(keyword)))
-  }, [keyword])
+  }, [queues, keyword])
 
   return (
     <main className="space-y-4 max-w-[600px]">
