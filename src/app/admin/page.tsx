@@ -1,61 +1,86 @@
+"use client"
+
+import Chart from "react-apexcharts";
+import { ApexOptions } from "apexcharts";
+
+
 export default function Page() {
+
+  const thistate = {
+    options: {
+      chart: {
+        id: "basic-bar"
+      },
+      xaxis: {
+        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+      }
+    },
+    series: [
+      {
+        name: "series-1",
+        data: [30, 40, 45, 50, 49, 60, 70, 91]
+      }
+    ]
+  }
+
+  const donutlist = {
+    series: [44, 55, 13, 43, 22],
+    options: {
+      chart: {
+        width: 380,
+        type: 'pie',
+      },
+      labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
+    }
+  }
+
   return (
     <>
       <h1 className="text-6xl">หน้าหลักแอดมิน</h1>
-      <div className="stats shadow">
-        <div className="stat">
-          <div className="stat-figure text-primary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block w-8 h-8 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              ></path>
-            </svg>
+
+
+
+      <div className="grid grid-cols-12 mt-8 gap-x-12">
+
+        <div className="col-span-6">
+          <p className="text-[28px] mb-3">ยอดการจองทั้งหมดในวันนี้ ตามช่วงเวลา</p>
+
+          <div className="bg-white rounded-lg">
+
+            <Chart
+              options={thistate.options}
+              series={thistate.series}
+              type="bar"
+              width="500"
+            />
           </div>
-          <div className="stat-title">Total Likes</div>
-          <div className="stat-value text-primary">25.6K</div>
-          <div className="stat-desc">21% more than last month</div>
         </div>
 
-        <div className="stat">
-          <div className="stat-figure text-secondary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block w-8 h-8 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              ></path>
-            </svg>
-          </div>
-          <div className="stat-title">Page Views</div>
-          <div className="stat-value text-secondary">2.6M</div>
-          <div className="stat-desc">21% more than last month</div>
-        </div>
+        <div className="col-span-6">
+          <p className="text-[28px] mb-3">ยอดการจองแยกแต่ละร้าน</p>
 
-        <div className="stat">
-          <div className="stat-figure text-secondary">
-            <div className="avatar online">
-              <div className="w-16 rounded-full">
-                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-              </div>
-            </div>
+          <div className="bg-white rounded-lg">
+
+
+            <Chart
+              options={donutlist.options}
+              series={donutlist.series}
+              type="pie"
+              width="500"
+            />
           </div>
-          <div className="stat-value">86%</div>
-          <div className="stat-title">Tasks done</div>
-          <div className="stat-desc text-secondary">31 tasks remaining</div>
+
         </div>
       </div>
     </>

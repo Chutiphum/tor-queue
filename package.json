@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@prisma/client": "5.10.1",
+    "apexcharts": "^3.46.0",
     "mysql": "^2.18.1",
     "next": "14.0.4",
     "react": "^18",
+    "react-apexcharts": "^1.4.1",
     "react-dom": "^18",
     "supabase": "^1.145.4"
   },
