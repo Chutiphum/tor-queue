@@ -33,3 +33,14 @@ export async function getOneRoom(where: Prisma.RoomWhereInput) {
     await prisma.$disconnect()
   }
 }
+
+export async function addRoom(data: Prisma.RoomCreateInput) {
+  try {
+    const room = await prisma.room.create({ data })
+    return room
+  } catch (err) {
+    throw err
+  } finally {
+    await prisma.$disconnect()
+  }
+}

@@ -7,10 +7,10 @@ export default async function Page() {
   const data = await getAllQueues()
 
   return (
-    <main className="flex">
-      <img src="/bg.jpg" alt="" className="-z-50 fixed top-0 left-0" />
+    <main className="lg:flex">
+      <img src="/bg.jpg" alt="" className="-z-50 fixed top-0 left-0 h-screen w-screen object-cover" />
       <div className="w-full h-full -z-40 bg-gradient-to-r from-white to-white/50 fixed top-0 left-0" />
-      <div className="w-[30%] h-screen sticky top-0 p-16 space-y-8">
+      <div className="max-lg:w-[30%] min-w-[500px] lg:h-screen lg:sticky top-0 p-16 space-y-8">
         <div className="rounded-full w-4/5 aspect-square bg-gray-500/50 overflow-hidden relative">
           <Image fill src="/car.gif" alt="avatar" />
         </div>
