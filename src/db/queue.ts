@@ -33,3 +33,27 @@ export async function getOneQueue(where: Prisma.QueueWhereInput) {
     await prisma.$disconnect()
   }
 }
+
+export async function addQueue(data: Prisma.QueueCreateInput) {
+  try {
+    const queue = await prisma.queue.create({ data })
+    return queue
+  } catch (err) {
+    throw err
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
+export async function deleteQueue(where: Prisma.QueueWhereInput) {
+  try {
+    const deletedQueue = await prisma.queue.deleteMany({
+      where,
+    });
+    return deletedQueue;
+  } catch (err) {
+    throw err;
+  } finally {
+    await prisma.$disconnect();
+  }
+}

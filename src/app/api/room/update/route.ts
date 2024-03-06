@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { addRoom } from "@/db/room";
+import { updateRoom } from "@/db/room";
 import { roomSchema } from "@/schema/room";
 
 export async function POST(request: NextRequest, response: NextRequest) {
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest, response: NextRequest) {
   }
 
   try {
-    const data = await addRoom(body)
+    const data = await updateRoom(body)
     return Response.json({ message: 'The room is created successfully.', res: data })
   } catch (err) {
     console.error(err)

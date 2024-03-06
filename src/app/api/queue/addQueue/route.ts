@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { addRoom } from "@/db/room";
-import { roomSchema } from "@/schema/room";
+import { NextRequest } from 'next/server'
+import { addQueue } from '@/db/queue'
+import { addQueueSchema } from "@/schema/queue";
 
 export async function POST(request: NextRequest, response: NextRequest) {
   const searchParams = request.nextUrl.searchParams
@@ -8,7 +8,7 @@ export async function POST(request: NextRequest, response: NextRequest) {
   
 
   try {
-    roomSchema.parse(body)
+    addQueueSchema.parse(body)
   } catch (err) {
     console.error(err)
     return new Response(JSON.stringify({
@@ -19,8 +19,8 @@ export async function POST(request: NextRequest, response: NextRequest) {
   }
 
   try {
-    const data = await addRoom(body)
-    return Response.json({ message: 'The room is created successfully.', res: data })
+    const data = await addQueue(body)
+    return Response.json({ message: 'yaahhooooo.', res: data })
   } catch (err) {
     console.error(err)
     return new Response(JSON.stringify({
