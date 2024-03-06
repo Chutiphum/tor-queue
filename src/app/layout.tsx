@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Itim } from 'next/font/google'
 import './globals.css'
+import AuthProvider from './context/AuthProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 const itim = Itim({ subsets: ['thai'], weight: '400' })
@@ -17,7 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={itim.className}>{children}</body>
+      <body className={itim.className}>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   )
 }
