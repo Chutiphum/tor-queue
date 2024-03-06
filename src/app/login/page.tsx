@@ -21,9 +21,14 @@ export default function page() {
         </button>
 
         {session && (
-          <button onClick={() => signOut()} className="bg-white px-2 py-2 mt-5 border w-full rounded flex justify-center items-center text-xl hover:scale-105 duration-300">
-            Logout
-          </button>
+          <div>
+            <button onClick={() => signOut()} className="bg-white px-2 py-2 mt-5 border w-full rounded flex justify-center items-center text-xl hover:scale-105 duration-300">
+              Logout
+            </button>
+            {/* <img src={session.user?.image} alt="User Avatar" /> */}
+            <p>{session.user?.email}</p>
+            <p>{session.user?.name}</p>
+          </div>
         )}
 
       </div>

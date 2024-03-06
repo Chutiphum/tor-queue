@@ -1,6 +1,6 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient();
 
@@ -12,14 +12,13 @@ export const options: NextAuthOptions = {
         })
     ],
     // callbacks: {
-    //     async signIn(user) {
-    //         const { email } = user;
-    //         await prisma.user.create({
+    //     async signIn({user, account, profile}) {
+    //         prisma.user.create({
     //             data: {
-                    
+    //                 email: user.email
     //             }
-    //         });
-    //         return true;
-    //     }
-    // }
+    //         })
+    //         console.log("Login Added")
+    //         return true
+    // }},
 }
