@@ -43,7 +43,11 @@ model Queue {
 }
 
 model User {
-  uId    Int     @id @default(autoincrement())
-  name   String
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  role      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   queues Queue[]
 }
