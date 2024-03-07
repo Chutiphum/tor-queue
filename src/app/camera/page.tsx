@@ -10,7 +10,7 @@ export default function Camera() {
         <div className="flex flex-col h-screen w-screen items-center justify-center">
             <div className="w-60 bg-white drop-shadow-lg rounded-xl">
                 <QrReader
-                    onResult={(result, error) => {
+                    onResult={(result: { text: React.SetStateAction<string>; }, error: any) => {
                         if (result) {
                             setData(result.text);
                         }
@@ -21,7 +21,7 @@ export default function Camera() {
                     className="w-full h-full"
                 />
             </div>
-            <p className="text-center m-4">{data}</p>
+            <a href={data} className="text-center m-4">{data}</a>
         </div>
     )
-}
+};
