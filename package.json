@@ -11,6 +11,8 @@
   "dependencies": {
     "@hassanmojab/react-modern-calendar-datepicker": "^3.1.7",
     "@prisma/client": "5.10.1",
+    "apexcharts": "^3.46.0",
+    "react-apexcharts": "^1.4.1",
     "@supabase/auth-helpers-nextjs": "^0.9.0",
     "@supabase/supabase-js": "^2.39.7",
     "axios": "^1.6.7",
