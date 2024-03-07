@@ -3,7 +3,6 @@
 import ListCard from '@/components/admin/ListCard'
 import AddRoomModal from '@/components/modals/AddRoomModal'
 import { Room } from '@prisma/client'
-import Link from 'next/link'
 import React, { useState } from 'react'
 
 export default function ShopList({ data }: { data: Room[] }) {
@@ -29,10 +28,13 @@ export default function ShopList({ data }: { data: Room[] }) {
   )
 
   const [keyword, setKeyword] = useState<string>('')
+  const searchRoom = data.filter(i =>
+    i.title.toLowerCase().includes(keyword.toLowerCase())
+  )
 
   return (
     <div>
-      <div className='flex mt-6 items-center justify-between'>
+      <div className="flex mt-6 items-center justify-between">
         <input
           type="text"
           placeholder="ค้นหาคิว..."
@@ -41,13 +43,16 @@ export default function ShopList({ data }: { data: Room[] }) {
           onChange={e => setKeyword(e.target.value)}
         />
         <div className="flex items-center gap-2">
-          <button className='btn bg-secondary hover:bg-white shadow-none border-none text-2xl font-medium rounded-[50px]'>
+          <button className="btn bg-secondary hover:bg-white shadow-none border-none text-2xl font-medium rounded-[50px]">
             จัดเรียงตาม
           </button>
           <button
-            className='btn bg-primary hover:bg-white shadow-none border-none text-2xl font-medium rounded-[50px]'
+            className="btn bg-primary hover:bg-white shadow-none border-none text-2xl font-medium rounded-[50px]"
             // @ts-ignore
-            onClick={() => document.getElementById('add_room_model').showModal()}
+            onClick={() =>
+              // @ts-ignore
+              document.getElementById('add_room_model').showModal()
+            }
           >
             สร้างคิวใหม่
           </button>
@@ -55,7 +60,22 @@ export default function ShopList({ data }: { data: Room[] }) {
         </div>
       </div>
       <div className="space-y-2 mt-8">
-        {res}
+        {searchRoom.map(i => (
+          <ListCard
+            key={i.rId}
+            room={{
+              rId: i.rId,
+              title: i.title,
+              description: i.description,
+              startTime: i.startTime,
+              endTime: i.endTime,
+              images: i.images,
+              enabled: i.enabled,
+              createdAt: i.createdAt,
+              updatedAt: i.updatedAt,
+            }}
+          />
+        ))}
       </div>
     </div>
   )
