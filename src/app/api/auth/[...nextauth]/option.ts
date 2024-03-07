@@ -1,8 +1,8 @@
 import type { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
-// import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
-// const prisma = new PrismaClient()
+const prisma = new PrismaClient()
 
 export const options: NextAuthOptions = {
   providers: [
@@ -11,43 +11,46 @@ export const options: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
-  // callbacks: {
-  //   async signIn({ user, account, profile }) {
-  //     const existingUser = await prisma.user.findFirst({
-  //       where: {
-  //         email: user.email
-  //       }
-  //     })
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      const existingUser = await prisma.user.findFirst({
+        where: {
+          email: user.email || ''
+        }
+      })
 
-  //     if (existingUser) {
-  //       console.log('User is already exist')
-  //       console.log(existingUser)
-  //       await prisma.user.update({
-  //         where: {
-  //           email: user.email
-  //         },
-  //         data: {
-  //           updatedAt: new Date()
-  //         }
-  //       })
-  //       return true
-  //     }
+      if (existingUser) {
+        console.log('Login User')
+        console.log(existingUser)
+        await prisma.user.update({
+          where: {
+            email: user.email || ''
+          },
+          data: {
+            updatedAt: new Date()
+          }
+        })
+        return true
+      }
 
-  //     const data = {
-  //       name: user.name,
-  //       email: user.email,
-  //       image: user.image,
-  //       role: 'user'
-  //     }
+      const data = {
+        name: user.name || '',
+        email: user.email || '',
+        image: user.image,
+        role: 'user',
+      }
 
-  //     const newUser = await prisma.user.create({
-  //       data,
-  //     })
+      const newUser = await prisma.user.create({
+        data,
+      })
 
-  //     console.log('Login Added')
-  //     console.log(newUser)
+      console.log('New User')
+      console.log(newUser)
 
-  //     return true
-  //   },
-  // },
+      return true
+    },
+    async redirect({ url, baseUrl }) {
+      return '/'
+    }
+  },
 }
