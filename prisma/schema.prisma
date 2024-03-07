@@ -30,9 +30,9 @@ model Room {
 
 model Queue {
   qId          Int       @id @default(autoincrement())
-  room         Room      @relation(fields: [rId], references: [rId])
+  room         Room      @relation(fields: [rId], references: [rId], onDelete: Cascade)
   rId          Int
-  user         User      @relation(fields: [uId], references: [uId])
+  user         User      @relation(fields: [uId], references: [uId], onDelete: Cascade)
   uId          Int
   startTime    DateTime
   endTime      DateTime
