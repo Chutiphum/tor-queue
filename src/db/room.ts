@@ -8,6 +8,9 @@ export async function getAllRooms() {
       include: {
         queues: true,
       },
+      orderBy: {
+        updatedAt: 'desc'
+      }
     })
     return rooms
   } catch (err) {

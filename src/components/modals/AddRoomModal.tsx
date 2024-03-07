@@ -5,15 +5,14 @@ import { Calendar } from '@hassanmojab/react-modern-calendar-datepicker'
 import dayjs from "dayjs"
 import 'dayjs/locale/th'
 dayjs.locale('th')
-
-import { roomSchema } from "@/schema/room"
+import axios from 'axios'
 
 export default function AddRoomModal() {
   const [title, setTitle] = useState<string>('')
   const [qLimit, setQLimit] = useState<number>(0)
   const [description, setDescription] = useState<string>('')
   const [enabled, setEnabled] = useState(false)
-  const [files, setFiles] = useState<File[]>([])
+  const [file, setFile] = useState<File | null>(null)
 
   const today = new Date()
   const defaultFrom = { year: today.getFullYear(), month: today.getMonth(), day: today.getDate(), }
@@ -21,47 +20,71 @@ export default function AddRoomModal() {
   const defaultRange = { from: defaultFrom, to: defaultTo, }
   const [selectedDayRange, setSelectedDayRange] = useState(defaultRange)
 
+  const [fromTime, setFromTime] = useState('00:00')
+  const [toTime, setToTime] = useState('00:00')
+
   const resetInput = () => {
     setTitle('')
     setQLimit(0)
     setDescription('')
     setSelectedDayRange(defaultRange)
-    setFiles([])
+    setFile(null)
+    setFromTime('00:00')
+    setToTime('00:00')
   }
 
   const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      const items = Array.from(e.target.files)
-      setFiles(items)
-      items.forEach(i => console.log(i))
+      // const items = Array.from(e.target.files)
+      setFile(e.target.files[0])
     }
   }
 
   const handleSubmit = async () => {
-    // @ts-ignore
-    const { success, data, error } = roomSchema.safeParse({
-      title,
-      description,
-      enabled,
-      startTime: new Date(
+    const form = new FormData()
+    form.append('title', title)
+    form.append('description', description)
+    if (enabled) form.append('enabled', 'true' )
+    form.append(
+      'startTime',
+      new Date(
         selectedDayRange.from.year,
         selectedDayRange.from.month - 1,
-        selectedDayRange.from.day
-      ),
-      endTime: new Date(
+        selectedDayRange.from.day,
+        parseInt(fromTime.split(':')[0]),
+        parseInt(fromTime.split(':')[1])
+      ).toISOString()
+    )
+    form.append(
+      'endTime',
+      new Date(
         selectedDayRange.to.year,
         selectedDayRange.to.month - 1,
-        selectedDayRange.to.day
-      ),
-    })
-
-    console.log(success, data, error)
-    console.log(files)
-    // await something()
-    // maybe add notification
-    // resetInput()
+        selectedDayRange.to.day,
+        parseInt(toTime.split(':')[0]),
+        parseInt(toTime.split(':')[1])
+      ).toISOString()
+    )
     // @ts-ignore
-    // document.getElementById('add_room_model').close()
+    form.append('image', file)
+
+    axios
+      .post(process.env.NEXT_PUBLIC_SERVER_URL + '/api/room/create', form, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(res => {
+        console.log(res.data)
+        alert('Upload Successful')
+        resetInput()
+        // @ts-ignore
+        document.getElementById('add_room_model').close()
+      })
+      .catch(err => {
+        console.error(err)
+        alert(err)
+      })
   }
 
   return (
@@ -107,9 +130,11 @@ export default function AddRoomModal() {
                       new Date(
                         selectedDayRange.from.year,
                         selectedDayRange.from.month - 1,
-                        selectedDayRange.from.day
+                        selectedDayRange.from.day,
+                        parseInt(fromTime.split(':')[0]),
+                        parseInt(fromTime.split(':')[1])
                       )
-                    ).format('dd DD MMMM YYYY')
+                    ).format('dd DD MMMM YYYY HH:mm')
                   : '-'}
               </p>
               <p className="text-xl">
@@ -119,9 +144,11 @@ export default function AddRoomModal() {
                       new Date(
                         selectedDayRange.to.year,
                         selectedDayRange.to.month - 1,
-                        selectedDayRange.to.day
+                        selectedDayRange.to.day,
+                        parseInt(toTime.split(':')[0]),
+                        parseInt(toTime.split(':')[1])
                       )
-                    ).format('dd DD MMMM YYYY')
+                    ).format('dd DD MMMM YYYY HH:mm')
                   : '-'}
               </p>
             </div>
@@ -134,27 +161,40 @@ export default function AddRoomModal() {
                 shouldHighlightWeekends
                 calendarClassName="text-lg"
               />
+              <p>เวลาเริ่ม {fromTime}</p>
+              <input
+                type="time"
+                value={fromTime}
+                onChange={e => setFromTime(e.target.value)}
+              />
+              <p>เวลาสิ้นสุด {toTime}</p>
+              <input
+                type="time"
+                value={toTime}
+                onChange={e => setToTime(e.target.value)}
+              />
             </div>
           </div>
 
           <label className="form-control w-full">
             <div className="label">
               <span className="label-text">ภาพประกอบ</span>
-              <span className="label-text-alt">{files.length} รูป</span>
+              {/* <span className="label-text-alt">{file.length} รูป</span> */}
             </div>
             <input
               type="file"
               accept="image/*"
-              multiple
               className="file-input file-input-bordered w-full"
               onChange={handleFile}
             />
             <div className="label">
-              <span className="label-text-alt">รองรับภาพประเทภ .jpg และ .png ขนาดไม่เกิน x MB</span>
+              <span className="label-text-alt">
+                รองรับภาพประเทภ .jpg และ .png ขนาดไม่เกิน x MB
+              </span>
             </div>
           </label>
 
-          <ImageCarousel files={files} />
+          <ImageCarousel file={file} setFile={setFile} />
 
           <div className="form-control">
             <label className="label cursor-pointer">
@@ -213,18 +253,28 @@ function QueueItem({
   )
 }
 
-function ImageCarousel({ files }: { files: File[] }) {
-  return files ? (
-    <div className="carousel rounded-box h-48 gap-2 bg-gray-100">
-      {files.map(item => (
-        <div key={item.name} className="carousel-item">
-          <img
-            src={URL.createObjectURL(item)}
-            alt="Burger"
-            className="rounded-2xl"
-          />
-        </div>
-      ))}
+function ImageCarousel({
+  file,
+  setFile,
+}: {
+  file: File | null
+  setFile: Dispatch<SetStateAction<File | null>>
+}) {
+  return file ? (
+    <div className="carousel rounded-box h-48 gap-2 bg-gray-100 overflow-x-scroll">
+      <div key={file.name} className="carousel-item group relative">
+        <img
+          src={URL.createObjectURL(file)}
+          alt="Burger"
+          className="rounded-2xl"
+        />
+        <button
+          className="btn btn-error btn-xs absolute top-2 right-2 opacity-0 group-hover:opacity-100 font-medium"
+          onClick={() => setFile(null)}
+        >
+          Delete {file.name}
+        </button>
+      </div>
     </div>
   ) : null
 }
