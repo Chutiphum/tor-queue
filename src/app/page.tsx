@@ -17,9 +17,9 @@ export default function Home() {
           <p className="text-3xl text-black">โปรดลงชื่อเข้าใช้</p>
         </div>
         <div className="flex flex-col gap-4">
-          <button className="text-2xl rounded-xl bg-secondary text-black p-3">
-            ลงชื่อเข้าใช้ด้วยแม่มึง
-          </button>
+          <Link href='/login' className="text-2xl rounded-xl bg-secondary text-black p-3 text-center">
+            ลงชื่อเข้าใช้
+          </Link>
           <Link
             href="/q"
             className="text-2xl rounded-xl bg-secondary text-black p-3 text-center"

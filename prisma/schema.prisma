@@ -11,7 +11,7 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["relationJoins"]
 }
 
@@ -43,11 +43,11 @@ model Queue {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  uId       Int      @id @default(autoincrement())
   email     String   @unique
   name      String?
   role      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  queues Queue[]
+  queues    Queue[]
 }
