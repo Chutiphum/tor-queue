@@ -2,30 +2,31 @@
 
 import ListCard from '@/components/admin/ListCard'
 import AddRoomModal from '@/components/modals/AddRoomModal'
+import { Room } from '@prisma/client'
 import Link from 'next/link'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
-export default function ShopList() {
-  const res = []
+export default function ShopList({ data }: { data: Room[] }) {
+  const res: JSX.Element[] = []
 
-  for (let i = 0; i < 20; i++) {
+  data.forEach(i =>
     res.push(
       <ListCard
-        key={i}
+        key={i.rId}
         room={{
-          rId: i,
-          title: 'Your mom ' + i,
-          description: 'Lorem ipsum',
-          startTime: new Date(),
-          endTime: new Date(),
-          images: [],
-          enabled: true,
-          createdAt: new Date(2024, 0, 1),
-          updatedAt: new Date(2024, 0, 1),
+          rId: i.rId,
+          title: i.title,
+          description: i.description,
+          startTime: i.startTime,
+          endTime: i.endTime,
+          images: i.images,
+          enabled: i.enabled,
+          createdAt: i.createdAt,
+          updatedAt: i.updatedAt,
         }}
       />
     )
-  }
+  )
 
   const [keyword, setKeyword] = useState<string>('')
 
@@ -53,7 +54,9 @@ export default function ShopList() {
           <AddRoomModal />
         </div>
       </div>
-      <div className="space-y-2 mt-8">{res}</div>
+      <div className="space-y-2 mt-8">
+        {res}
+      </div>
     </div>
   )
 }
