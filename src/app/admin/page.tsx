@@ -1,27 +1,26 @@
-"use client"
+'use client'
 
-import Chart from "react-apexcharts";
-import { ApexOptions } from "apexcharts";
+import Chart from 'react-apexcharts'
+import { ApexOptions } from 'apexcharts'
 
-import Clock from "@/components/Clock"
+import Clock from '@/components/Clock'
 
 export default function Page() {
-
   const thistate = {
     options: {
       chart: {
-        id: "basic-bar"
+        id: 'basic-bar',
       },
       xaxis: {
-        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-      }
+        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+      },
     },
     series: [
       {
-        name: "series-1",
-        data: [30, 40, 45, 50, 49, 60, 70, 91]
-      }
-    ]
+        name: 'series-1',
+        data: [30, 40, 45, 50, 49, 60, 70, 91],
+      },
+    ],
   }
 
   const donutlist = {
@@ -32,33 +31,33 @@ export default function Page() {
         type: 'pie',
       },
       labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              position: 'bottom',
+            },
           },
-          legend: {
-            position: 'bottom'
-          }
-        }
-      }]
-    }
+        },
+      ],
+    },
   }
 
   return (
-    <>
-      <h1 className="text-6xl">หน้าหลักแอดมิน</h1>
+    <main className="h-fit w-full overflow-hidden">
+      <h1 className="text-6xl mb-4">หน้าหลักแอดมิน</h1>
 
-
-
-      <div className="grid grid-cols-12 mt-8 gap-x-12">
-
-        <div className="col-span-6">
-          <p className="text-[28px] mb-3">ยอดการจองทั้งหมดในวันนี้ ตามช่วงเวลา</p>
+      <div className="flex gap-8 h-fit w-fit">
+        <div className="w-fit h-fit">
+          <p className="text-[28px] mb-3">
+            ยอดการจองทั้งหมดในวันนี้ ตามช่วงเวลา
+          </p>
 
           <div className="bg-white rounded-lg">
-
             <Chart
               options={thistate.options}
               series={thistate.series}
@@ -68,12 +67,10 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="col-span-6">
+        <div className="w-fit h-fit">
           <p className="text-[28px] mb-3">ยอดการจองแยกแต่ละร้าน</p>
 
           <div className="bg-white rounded-lg">
-
-
             <Chart
               options={donutlist.options}
               series={donutlist.series}
@@ -81,10 +78,9 @@ export default function Page() {
               width="500"
             />
           </div>
-
         </div>
       </div>
       <Clock />
-    </>
+    </main>
   )
 }
