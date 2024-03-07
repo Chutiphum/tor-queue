@@ -406,7 +406,7 @@ packages:
       '@supabase/supabase-js': ^2.19.0
     dependencies:
       '@supabase/supabase-js': 2.39.7
-      jose: 4.15.4
+      jose: 4.15.5
     dev: false
 
   /@supabase/functions-js@2.1.5:
