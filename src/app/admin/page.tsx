@@ -3,6 +3,7 @@
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 
+import Clock from "@/components/Clock"
 
 export default function Page() {
 
@@ -83,6 +84,7 @@ export default function Page() {
 
         </div>
       </div>
+      <Clock />
     </>
   )
 }

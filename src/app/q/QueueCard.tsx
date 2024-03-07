@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export default function QueueCard({ queue }: { queue: Queue }) {
   return (
-    <div className="p-6 bg-white rounded-2xl w-[600px] min-h-[300px]">
+    <div className="p-6 bg-white rounded-2xl max-w-[600px] min-h-[300px]">
       <div className="flex justify-between items-center">
         <div className="h-24 aspect-square bg-gray-500/50 rounded-full relative overflow-hidden">
           <Image fill alt="" src="/car2.png" className="object-cover" />
