@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
+import { User } from '@prisma/client'
 
-export default function Main({ data }: any) {
-
-  
+export default function Main({ data }: { data: User[] }) {
 
     return (
         <div>
@@ -22,35 +21,23 @@ export default function Main({ data }: any) {
                 </div>
             </div>
 
-
             <div className="">
-
-                {data.map((item: any, i: number) => (
+                {data.map((item, i: number) => (
                     <div key={i}>
-                        <Link href={`/admin/users?userid=${item.id}`}>
+                        <Link href={`/admin/users?userid=${item.uId}`}>
                             <div className="bg-white p-5 w-full rounded-lg my-4">
-
-                                <div className="flex justify-between items-center">
-
-                                    <div className="">
-                                        <div className="grid grid-cols-3 place-items-center gap-x-2">
-                                            <div className="col-span-1">
-                                                <img src={item.img} alt="" className='h-[100px]' />
-                                            </div>
-                                            <div className="col-span-2">
-                                                <p className='text-[30px] font-semibold'>{item.name}</p>
-                                                <p className='text-[18px]'>ระดับ {item.gender}</p>
-                                            </div>
+                                <div className="flex justify-between items-center px-8">
+                                    <div className="flex justify-center items-center gap-8">
+                                        <div className="w-[100px]">
+                                            <img src={item.image} className='w-[100px] aspect-square object-cover overflow-hidden rounded-full shadow-md' />
+                                        </div>
+                                        <div>
+                                            <p className='text-[30px] font-semibold'>{item.name}</p>
+                                            <p className='text-[24px] font-semibold'>{item.email}</p>
+                                            <p className='text-[18px]'>ระดับ {item.role}</p>
                                         </div>
                                     </div>
-                                    <div className="">
-
-                                        <p className='text-gray-400 text-[20px]'>login ล่าสุด</p>
-                                        <p className='text-gray-400 text-[20px]'>วว ดด ปป ชม:นท</p>
-                                    </div>
-
                                 </div>
-
                             </div>
                         </Link>
 
