@@ -32,3 +32,9 @@ body {
 .chat {
   color: blue ;
 }
+
+@layer components {
+  hr {
+    @apply border-2 border-gray-400
+  }
+}

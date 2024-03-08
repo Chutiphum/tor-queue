@@ -4,12 +4,14 @@ import Image from 'next/image'
 import { Queue, User } from '@prisma/client'
 import dayjs from 'dayjs'
 import 'dayjs/locale/th'
+dayjs.locale('th')
 import axios from 'axios'
 import { useState } from 'react'
-dayjs.locale('th')
+import { useRouter } from 'next/navigation'
 
 export default function QueueCard({ queue }: { queue: Queue & { user: User } }) {
   const [currentQueue, setCurrentQueue] = useState(queue)
+  const router = useRouter()
 
   const deleteThisQueue = async () => {
     if (confirm(`คุณต้องการลบคิวของ "${queue.user.name}" หรือไม่`)) {
@@ -21,6 +23,7 @@ export default function QueueCard({ queue }: { queue: Queue & { user: User } }) 
         )
         .then(res => {
           setCurrentQueue({ ...currentQueue, deleted: true })
+          router.refresh()
         })
         .catch(err => {
           alert(err)
@@ -34,7 +37,7 @@ export default function QueueCard({ queue }: { queue: Queue & { user: User } }) 
       <div className="flex items-center gap-4">
         <div className="avatar">
           <div className={`w-16 rounded-full relative`}>
-            <Image fill alt="" src={'/car2.png'} />
+            <Image fill alt="" src={currentQueue.user.image || '/car2.png'} />
           </div>
         </div>
         <div>

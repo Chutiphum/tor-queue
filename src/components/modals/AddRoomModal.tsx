@@ -6,6 +6,7 @@ import dayjs from "dayjs"
 import 'dayjs/locale/th'
 dayjs.locale('th')
 import axios from 'axios'
+import { useRouter } from "next/navigation"
 
 export default function AddRoomModal() {
   const [title, setTitle] = useState<string>('')
@@ -39,6 +40,8 @@ export default function AddRoomModal() {
       setFile(e.target.files[0])
     }
   }
+
+  const router = useRouter()
 
   const handleSubmit = async () => {
     const form = new FormData()
@@ -80,6 +83,7 @@ export default function AddRoomModal() {
         resetInput()
         // @ts-ignore
         document.getElementById('add_room_model').close()
+        router.refresh()
       })
       .catch(err => {
         console.error(err)
@@ -97,12 +101,12 @@ export default function AddRoomModal() {
         {/*  */}
         <form className="flex flex-col gap-2">
           <QueueItem title="ชื่อคิว" getter={title} setter={setTitle} />
-          <QueueItem
+          {/* <QueueItem
             title="จำกัดคิว"
             getter={qLimit}
             setter={setQLimit}
             dataType="number"
-          />
+          /> */}
           <label className="form-control w-full">
             <div className="label">
               <span className="label-text">รายละเอียด</span>

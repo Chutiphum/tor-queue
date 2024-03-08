@@ -37,6 +37,24 @@ export async function getOneQueue(where: Prisma.QueueWhereInput) {
   }
 }
 
+export async function getMyQueue(uId: number) {
+  try {
+    const queue = await prisma.queue.findMany({
+      where: {
+        uId
+      },
+      include: {
+        room: true,
+      },
+    })
+    return queue
+  } catch (err) {
+    throw err
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
 export async function addQueue({ uId, rId, startTime, endTime }: {
   uId: number, rId: number, startTime: string, endTime: string
 }) {

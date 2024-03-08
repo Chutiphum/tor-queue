@@ -24,8 +24,6 @@ export async function POST(request: NextRequest, response: NextResponse) {
   const body = {
     uId: parseInt(`${formData.get('uId')}`),
     rId: parseInt(`${formData.get('rId')}`),
-    startTime: `${formData.get('startTime')}`,
-    endTime: `${formData.get('endTime')}`,
   }
 
   const room = await getOneRoom({
@@ -55,7 +53,11 @@ export async function POST(request: NextRequest, response: NextResponse) {
   }
 
   try {
-    const data = await addQueue(body)
+    const data = await addQueue({
+      ...body,
+      startTime: room.startTime.toISOString(),
+      endTime: room.endTime.toISOString()
+    })
     return Response.json({
       message: 'The room is created successfully.',
       res: data,

@@ -3,11 +3,28 @@
 import { useState, useEffect } from 'react'
 import QueueCard from './QueueCard'
 import { Queue } from '@prisma/client'
+import { useSession } from 'next-auth/react'
+import axios from 'axios'
 
-export default function QueueList({ queues }: { queues: Queue[] }) {
+export default function QueueList() {
+  const { data: session } = useSession()
+  const [queues, setQueues] = useState<Queue[]>([])
   const [keyword, setKeyword] = useState<string>('')
   const [searchedList, setSearchedList] = useState<Queue[]>([])
 
+  useEffect(() => {
+    if (session?.user?.uId) {
+      const res = axios
+        .get(
+          process.env.NEXT_PUBLIC_SERVER_URL +
+            '/api/queues?id=' +
+            session?.user?.uId
+        )
+        .then(res => {
+          setQueues(res.data)
+        })
+    }
+  })
   useEffect(() => {
     // @ts-ignore
     setSearchedList(queues.filter(i => i.room.title.includes(keyword)))
@@ -27,13 +44,13 @@ export default function QueueList({ queues }: { queues: Queue[] }) {
 
       <h1>รายการคิวที่กำลังต่อ</h1>
       {searchedList.map(q =>
-        !q.finished ? <QueueCard key={q.qId} queue={q} /> : null
+        !q.deleted ? <QueueCard key={q.qId} queue={q} /> : null
       )}
       <br />
 
       <h1>รายการคิวที่เสร็จแล้ว</h1>
       {searchedList.map(q =>
-        q.finished ? <QueueCard key={q.qId} queue={q} /> : null
+        q.deleted ? <QueueCard key={q.qId} queue={q} /> : null
       )}
     </main>
   )
