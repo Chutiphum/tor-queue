@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { Scanner } from '@yudiel/react-qr-scanner';
+import { error } from 'console';
 
 export default function Camera() {
     const [data, setData] = useState('No result');
     const [showModal, setShowModal] = useState(false);
+    const [cameraError, setCameraError] = useState(false);
 
     useEffect(() => {
         if (data !== 'No result') {
@@ -20,6 +22,10 @@ export default function Camera() {
 
     const handleCloseModal = () => {
         setShowModal(false);
+    };
+
+    const handleCameraError = (error: any) => {
+        setCameraError(true);
     };
 
     return (
@@ -43,11 +49,14 @@ export default function Camera() {
                 <div className='m-2'>
                     <Scanner
                         onResult={(text, result) => { setData(text); console.log(text, result); }}
-                        onError={(error) => console.log(error?.message)}
+                        onError={(error) => {console.log(error?.message); handleCameraError(error);}}
                         components={{ audio: true }}
                     />
                 </div>
             </div>
+            {cameraError && (
+                <p className="text-white mt-4 bg-rose-600 p-2 rounded-xl">Please turn on access camera</p>
+            )}
             <a href={data} className="text-center mt-4">{data}</a>
         </div>
     )
