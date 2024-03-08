@@ -5,6 +5,9 @@ import Link from "next/link"
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useRouter } from "next/navigation"
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
+
 export default function QueuePageNavBar() {
   const { data: session, status } = useSession()
   const router = useRouter()
@@ -29,6 +32,13 @@ export default function QueuePageNavBar() {
         <p className="text-3xl text-black">{session?.user?.email}</p>
       </div>
       <div className="flex flex-col gap-4">
+        <Link
+          href="/camera"
+          className="text-2xl rounded-xl bg-secondary text-black p-3 text-center"
+        >
+          <FontAwesomeIcon icon={faCamera} className="mr-2" />
+          เปิดกล้อง
+        </Link>
         <Link
           href="/admin"
           className="text-2xl rounded-xl bg-secondary text-black p-3 text-center"
