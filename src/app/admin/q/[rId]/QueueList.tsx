@@ -52,6 +52,7 @@ export default function QueueList({ room }: { room: RoomDetail }) {
           const newQ: QueueDetail[] = JSON.parse(JSON.stringify(queues))
           newQ.forEach(i => (i.deleted = true))
           setQueues(newQ)
+          router.refresh()
         })
         .catch(err => {
           alert(err)
@@ -108,7 +109,7 @@ export default function QueueList({ room }: { room: RoomDetail }) {
                 ? 'bg-primary hover:bg-secondary'
                 : 'border-primary border-2 bg-gray-300 hover:bg-gray-400'
             } shadow-none border-none text-2xl font-medium rounded-[50px]`}
-            onClick={() => enabled ? off() : on()}
+            onClick={() => (enabled ? off() : on())}
           >
             {enabled ? 'ปิดคิว' : 'เปิดคิว'}
           </button>
@@ -116,9 +117,18 @@ export default function QueueList({ room }: { room: RoomDetail }) {
       </div>
       {/* <p>{JSON.stringify(room.queues)}</p> */}
       <div className="mt-8 flex flex-col gap-2">
-        {searchQueues.map(i => (
+        {searchQueues.map(i =>
           <QueueCard key={i.qId} queue={i} />
-        ))}
+        )}
+        {/* <h2>กำลังทำ</h2>
+        {searchQueues.map(i => (
+          !i.finished ? <QueueCard key={i.qId} queue={i} /> : null
+          ))}
+        <hr/>
+        <h2>เสร็จแล้ว</h2>
+        {searchQueues.map(i => (
+          i.finished ? <QueueCard key={i.qId} queue={i} /> : null
+        ))} */}
       </div>
     </div>
   )

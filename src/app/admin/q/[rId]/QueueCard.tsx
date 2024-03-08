@@ -7,9 +7,11 @@ import 'dayjs/locale/th'
 dayjs.locale('th')
 import axios from 'axios'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function QueueCard({ queue }: { queue: Queue & { user: User } }) {
   const [currentQueue, setCurrentQueue] = useState(queue)
+  const router = useRouter()
 
   const deleteThisQueue = async () => {
     if (confirm(`คุณต้องการลบคิวของ "${queue.user.name}" หรือไม่`)) {
@@ -21,6 +23,7 @@ export default function QueueCard({ queue }: { queue: Queue & { user: User } }) 
         )
         .then(res => {
           setCurrentQueue({ ...currentQueue, deleted: true })
+          router.refresh()
         })
         .catch(err => {
           alert(err)

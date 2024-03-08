@@ -2,6 +2,8 @@ import BackButton from "@/components/BackButton"
 import { getOneRoom } from "@/db/room"
 import QueueList from "./QueueList"
 
+export const dynamic = 'force-dynamic'
+
 type Props = {
   params: { [key: string]: string }
   searchParams: { [key: string]: string | string[] | undefined }

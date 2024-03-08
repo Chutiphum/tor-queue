@@ -43,9 +43,9 @@ export default function ShopList({ data }: { data: Room[] }) {
           onChange={e => setKeyword(e.target.value)}
         />
         <div className="flex items-center gap-2">
-          <button className="btn bg-secondary hover:bg-white shadow-none border-none text-2xl font-medium rounded-[50px]">
+          {/* <button className="btn bg-secondary hover:bg-white shadow-none border-none text-2xl font-medium rounded-[50px]">
             จัดเรียงตาม
-          </button>
+          </button> */}
           <button
             className="btn bg-primary hover:bg-white shadow-none border-none text-2xl font-medium rounded-[50px]"
             // @ts-ignore
