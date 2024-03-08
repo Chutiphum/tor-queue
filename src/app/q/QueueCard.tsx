@@ -9,7 +9,7 @@ export default function QueueCard({ queue }: { queue: Queue }) {
     <div className="p-6 bg-white rounded-2xl max-w-[600px] min-h-[300px]">
       <div className="flex justify-between items-center">
         <div className="h-24 aspect-square bg-gray-500/50 rounded-full relative overflow-hidden">
-          <Image fill alt="" src="/car2.png" className="object-cover" />
+          <Image fill alt="" src={queue.room.images[0] || "/car2.png"} className="object-cover" />
         </div>
         {/* <div className="">
           <p className="text-end text-lg">คิวที่</p>

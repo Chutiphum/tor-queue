@@ -44,13 +44,13 @@ export default function QueueList() {
 
       <h1>รายการคิวที่กำลังต่อ</h1>
       {searchedList.map(q =>
-        !q.finished ? <QueueCard key={q.qId} queue={q} /> : null
+        !q.deleted ? <QueueCard key={q.qId} queue={q} /> : null
       )}
       <br />
 
       <h1>รายการคิวที่เสร็จแล้ว</h1>
       {searchedList.map(q =>
-        q.finished ? <QueueCard key={q.qId} queue={q} /> : null
+        q.deleted ? <QueueCard key={q.qId} queue={q} /> : null
       )}
     </main>
   )

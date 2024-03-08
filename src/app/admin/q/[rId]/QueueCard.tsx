@@ -37,7 +37,7 @@ export default function QueueCard({ queue }: { queue: Queue & { user: User } }) 
       <div className="flex items-center gap-4">
         <div className="avatar">
           <div className={`w-16 rounded-full relative`}>
-            <Image fill alt="" src={'/car2.png'} />
+            <Image fill alt="" src={currentQueue.user.image || '/car2.png'} />
           </div>
         </div>
         <div>

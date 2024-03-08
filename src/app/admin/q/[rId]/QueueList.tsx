@@ -2,6 +2,7 @@
 
 import { Queue, Room, User } from "@prisma/client";
 import { useState } from "react";
+import QRCode from 'react-qr-code'
 
 import QueueCard from "./QueueCard";
 import axios from "axios";
@@ -70,7 +71,7 @@ export default function QueueList({ room }: { room: RoomDetail }) {
         <input
           type="text"
           placeholder="ค้นหาคิว..."
-          className="text-2xl rounded-[50px] px-6 py-2 bg-[#d9d9d9]/50 w-[300px] sticky top-16 backdrop-blur-2xl z-50"
+          className="text-2xl rounded-[50px] px-6 py-2 bg-[#d9d9d9]/50 w-[300px] sticky top-16 backdrop-blur-2xl z-40"
           value={keyword}
           onChange={e => setKeyword(e.target.value)}
         />
@@ -91,6 +92,14 @@ export default function QueueList({ room }: { room: RoomDetail }) {
               ประวัติ
             </a>
           </div>
+          {/* Open the modal using document.getElementById('ID').showModal() method */}
+          <button
+            className="btn bg-primary hover:bg-primary shadow-none border-none text-2xl font-medium rounded-[50px]"
+            // @ts-ignore
+            onClick={() => document.getElementById('qr_code').showModal()}
+          >
+            QR Code
+          </button>
           <button
             className="btn btn-error shadow-none border-none text-2xl font-medium rounded-[50px]"
             onClick={deleteThisRoom}
@@ -117,9 +126,9 @@ export default function QueueList({ room }: { room: RoomDetail }) {
       </div>
       {/* <p>{JSON.stringify(room.queues)}</p> */}
       <div className="mt-8 flex flex-col gap-2">
-        {searchQueues.map(i =>
+        {searchQueues.map(i => (
           <QueueCard key={i.qId} queue={i} />
-        )}
+        ))}
         {/* <h2>กำลังทำ</h2>
         {searchQueues.map(i => (
           !i.finished ? <QueueCard key={i.qId} queue={i} /> : null
@@ -130,6 +139,25 @@ export default function QueueList({ room }: { room: RoomDetail }) {
           i.finished ? <QueueCard key={i.qId} queue={i} /> : null
         ))} */}
       </div>
+      <dialog id="qr_code" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-xl">Hello!</h3>
+          <p className="py-4">
+            Press ESC key or click the button below to close
+          </p>
+          <QRCode value={JSON.stringify({
+            rId: room.rId,
+            // title: room.title,
+            // image: room.images[0]
+          })} />
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn rounded-[50px] text-xl">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   )
 }
