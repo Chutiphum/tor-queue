@@ -4,9 +4,9 @@ import Image from 'next/image'
 import { Queue, User } from '@prisma/client'
 import dayjs from 'dayjs'
 import 'dayjs/locale/th'
+dayjs.locale('th')
 import axios from 'axios'
 import { useState } from 'react'
-dayjs.locale('th')
 
 export default function QueueCard({ queue }: { queue: Queue & { user: User } }) {
   const [currentQueue, setCurrentQueue] = useState(queue)
