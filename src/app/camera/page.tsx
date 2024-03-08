@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { Scanner } from '@yudiel/react-qr-scanner';
-import { error } from 'console';
 
 export default function Camera() {
     const [data, setData] = useState('No result');
