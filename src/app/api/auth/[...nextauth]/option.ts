@@ -27,7 +27,8 @@ export const options: NextAuthOptions = {
             email: user.email || ''
           },
           data: {
-            updatedAt: new Date()
+            updatedAt: new Date(),
+            image: user.image,
           }
         })
         return true
@@ -51,6 +52,17 @@ export const options: NextAuthOptions = {
     },
     async redirect({ url, baseUrl }) {
       return '/'
+    },
+    async session({ session, token, user }) {
+      // const data = await prisma.user.findFirst({
+      //   where: {
+      //     email: user.email
+      //   },
+      // })
+
+      // session.user.role = data?.role
+
+      return session
     }
   },
 }

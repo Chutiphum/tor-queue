@@ -3,9 +3,21 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useSession, signIn, signOut } from 'next-auth/react'
+import { useRouter } from "next/navigation"
 
 export default function QueuePageNavBar() {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
+  const router = useRouter()
+
+  if (status === 'loading') {
+    return (
+      <p>loading...</p>
+    )
+  }
+
+  if (!session) {
+    router.push('/')
+  }
 
   return (
     <div className="max-lg:w-[30%] min-w-[500px] lg:h-screen lg:sticky top-0 p-16 space-y-8">
@@ -23,12 +35,12 @@ export default function QueuePageNavBar() {
         >
           หน้าแอดมิน
         </Link>
-        <Link
-          href="/"
+        <button
+          onClick={() => signOut()}
           className="text-2xl rounded-xl bg-red-500 text-white p-3 text-center"
         >
           ลงชื่อออก
-        </Link>
+        </button>
       </div>
     </div>
   )

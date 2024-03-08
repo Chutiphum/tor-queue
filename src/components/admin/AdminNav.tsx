@@ -1,8 +1,9 @@
 'use client'
 
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 
 const navItems = [
   { name: 'หน้าหลักแอดมิน', href: '/admin' },
@@ -11,6 +12,24 @@ const navItems = [
 ]
 
 export default function AdminNav() {
+  const { data: session, status } = useSession()
+  const router = useRouter()
+
+  if (status === 'loading') {
+    return (
+      <p>loading...</p>
+    )
+  }
+
+  if (!session) {
+    router.push('/')
+    return <p>loading...</p>
+  }
+  if (session && session?.user?.role !== 'admin') {
+    router.push('/q')
+    return <p>loading...</p>
+  }
+
   return (
     <div className="bg-primary h-screen p-4 space-y-4 text-black">
       <div className="flex items-center space-x-4">
