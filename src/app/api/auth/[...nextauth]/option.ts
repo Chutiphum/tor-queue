@@ -54,13 +54,14 @@ export const options: NextAuthOptions = {
       return '/'
     },
     async session({ session, token, user }) {
-      // const data = await prisma.user.findFirst({
-      //   where: {
-      //     email: user.email
-      //   },
-      // })
+      console.log(session, token, user)
+      const data = await prisma.user.findFirst({
+        where: {
+          email: session.user?.email || ''
+        },
+      })
 
-      // session.user.role = data?.role
+      if (session && session.user) session.user.role = data?.role
 
       return session
     }
