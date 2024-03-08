@@ -1,8 +1,9 @@
 'use client'
 
+import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 
 const navItems = [
   { name: 'หน้าหลักแอดมิน', href: '/admin' },
@@ -11,6 +12,24 @@ const navItems = [
 ]
 
 export default function AdminNav() {
+  const { data: session, status } = useSession()
+  const router = useRouter()
+
+  if (status === 'loading') {
+    return (
+      <p>loading...</p>
+    )
+  }
+
+  if (!session) {
+    router.push('/')
+    return <p>loading...</p>
+  }
+  if (session && session?.user?.role !== 'admin') {
+    router.push('/q')
+    return <p>loading...</p>
+  }
+
   return (
     <div className="bg-primary h-screen p-4 space-y-4 text-black">
       <div className="flex items-center space-x-4">
@@ -28,11 +47,17 @@ export default function AdminNav() {
           <AdminLink key={i.href} {...i} />
         ))}
         <Link
-          href="/"
+          href="/q"
+          className={`btn bg-red-500 hover:bg-red-600 text-white border-none w-full min-h-0 h-fit rounded-2xl py-2 text-lg font-normal text-start`}
+        >
+          กลับหน้าหลัก
+        </Link>
+        <button
+          onClick={() => signOut()}
           className={`btn bg-red-500 hover:bg-red-600 text-white border-none w-full min-h-0 h-fit rounded-2xl py-2 text-lg font-normal text-start`}
         >
           ลงชื่อออก
-        </Link>
+        </button>
       </div>
     </div>
   )
@@ -46,9 +71,9 @@ function AdminLink({ name, href }: { name: string; href: string }) {
       href={href}
       className={`btn ${
         href != '/' && pathname === href
-          ? 'bg-secondary shadow-none'
-          : 'bg-secondary/20'
-      } hover:bg-white border-none w-full min-h-0 h-fit rounded-2xl py-2 text-lg font-normal text-start`}
+          ? 'bg-secondary shadow-none hover:bg-white'
+          : 'bg-secondary/20 hover:bg-secondary/70'
+      } border-none w-full min-h-0 h-fit rounded-2xl py-2 text-lg font-normal text-start`}
     >
       {name}
     </Link>
