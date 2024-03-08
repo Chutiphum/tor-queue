@@ -7,21 +7,17 @@ export default function Main({ data }: { data: User[] }) {
     return (
         <div>
             <h1 className="text-6xl">จัดการผู้ใช้ทั้งหมดในระบบ</h1>
-
             <div className="mt-8"></div>
-
             <div className="flex justify-between">
-                <div className="">
+                <div>
                     <input type="text" className='bg-[#D9D9D9] p-3 rounded-3xl text-[20px] px-12' placeholder='ค้นหาคิว...' />
                 </div>
-
-                <div className="">
-
+                <div>
                     <button className='p-2 px-4 bg-[#FFDAC6] font-semibold rounded-3xl text-[20px]'>จัดเรียงตาม</button>
                 </div>
             </div>
 
-            <div className="">
+            <div>
                 {data.map((item, i: number) => (
                     <div key={i}>
                         <Link href={`/admin/users?userid=${item.uId}`}>
