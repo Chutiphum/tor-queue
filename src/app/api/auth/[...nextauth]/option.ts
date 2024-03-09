@@ -61,8 +61,8 @@ export const options: NextAuthOptions = {
         },
       })
 
-      if (session && session.user) {
-        session.user.role = data?.role
+      if (session && session.user) { // @ts-ignore
+        session.user.role = data?.role // @ts-ignore
         session.user.uId = data?.uId
       }
 

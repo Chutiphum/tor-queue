@@ -12,12 +12,12 @@ export default function QueueList() {
   const [keyword, setKeyword] = useState<string>('')
   const [searchedList, setSearchedList] = useState<Queue[]>([])
 
-  useEffect(() => {
+  useEffect(() => { // @ts-ignore
     if (session?.user?.uId) {
       const res = axios
         .get(
           process.env.NEXT_PUBLIC_SERVER_URL +
-            '/api/queues?id=' +
+            '/api/queues?id=' + // @ts-ignore
             session?.user?.uId
         )
         .then(res => {

@@ -8,9 +8,8 @@ export default async function Page() {
 
     return (
         <div>
-            {
-                <Main data={data} />
-            }
+            {/* @ts-ignore */}
+            <Main data={data} />
         </div>
     )
 }

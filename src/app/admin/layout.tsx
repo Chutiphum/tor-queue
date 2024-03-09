@@ -17,6 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     router.push('/')
     return <p>loading...</p>
   }
+  // @ts-ignore
   if (session && session?.user?.role !== 'admin') {
     router.push('/q')
     return <p>loading...</p>

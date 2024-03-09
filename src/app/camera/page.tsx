@@ -1,5 +1,11 @@
 'use client'
 
+import dynamic from 'next/dynamic'
+
+const DynamicQrScanner = dynamic(() => import('@yudiel/react-qr-scanner').then(mod => mod.Scanner), {
+  ssr: false
+})
+
 import React, { useState, useEffect } from 'react'
 import { Scanner } from '@yudiel/react-qr-scanner'
 import axios from 'axios'
@@ -71,7 +77,7 @@ export default function Camera() {
   const router = useRouter()
 
   const handleSubmit = () => {
-    const form = new FormData()
+    const form = new FormData() // @ts-ignore
     form.append('uId', `${session?.user?.uId}`)
     form.append('rId', `${data?.rId}`)
 
@@ -101,7 +107,7 @@ export default function Camera() {
                     <Image
                       fill
                       alt=""
-                      src={data.images[0] || "/car2.png"}
+                      src={data.images[0] || '/car2.png'}
                       className="object-cover"
                     />
                   </div>
@@ -143,7 +149,7 @@ export default function Camera() {
       </div>
       <div className="h-[70vh] aspect-square bg-neutral-700 drop-shadow-lg rounded-sm">
         <div className="m-2">
-          <Scanner
+          <DynamicQrScanner
             onResult={(text, result) => {
               handleScan(text)
             }}

@@ -24,6 +24,7 @@ export default function Main({ data }: { data: User[] }) {
 
 
     const handleSwitchToUser = async (uId: any) => {
+        // @ts-ignore
         if (confirm(`ต้องการเปลี่ยน Role ของ ${selectedUser?.email} เป็น User ใช่ไหหรือไม่`)) {
             axios
                 .put(
@@ -42,6 +43,7 @@ export default function Main({ data }: { data: User[] }) {
     }
 
     const handleSwitchToAdmin = async (uId: any) => {
+        // @ts-ignore
         if (confirm(`ต้องการเปลี่ยน Role ของ ${selectedUser?.email} เป็น Admin ใช่ไหหรือไม่`)) {
             axios
                 .put(
@@ -61,6 +63,7 @@ export default function Main({ data }: { data: User[] }) {
 
 
     const handleDeleteUser = async (uId: any) => {
+        // @ts-ignore
         if (confirm(`คุณต้องการลบผูใช้ Email : ${selectedUser?.email} หรือไม่`)) {
             axios
                 .delete(
@@ -102,6 +105,7 @@ export default function Main({ data }: { data: User[] }) {
                         <div className="flex justify-center items-center gap-8">
                             <div className="w-[100px]">
                                 <img
+                                // @ts-ignore
                                     src={item.image}
                                     className="w-[100px] aspect-square object-cover overflow-hidden rounded-full shadow-md"
                                 />
@@ -110,10 +114,10 @@ export default function Main({ data }: { data: User[] }) {
                                 <p className="text-[30px] font-semibold">
                                     {item.name}
                                 </p>
-                                <p className="text-[24px] font-semibold">
+                                <p className="text-[24px] font-semibold"> {/* @ts-ignore */}
                                     {item.email}
                                 </p>
-                                <p className="text-[18px]">
+                                <p className="text-[18px]"> {/* @ts-ignore */}
                                     ระดับ {item.role}
                                 </p>
                             </div>
@@ -131,9 +135,9 @@ export default function Main({ data }: { data: User[] }) {
             {selectedUser && (
                 <div className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50">
                     <div className="bg-white p-5 rounded-lg">
-                        <h2 className="text-2xl font-semibold mb-4">{selectedUser.name}</h2>
+                        <h2 className="text-2xl font-semibold mb-4">{selectedUser.name}</h2> {/* @ts-ignore */}
                         <p>Email : {selectedUser.email}</p>
-                        <p>UserID : {selectedUser.uId}</p>
+                        <p>UserID : {selectedUser.uId}</p> {/* @ts-ignore */}
                         <p>Role : {selectedUser.role}</p>
                         <div className='flex'>
 

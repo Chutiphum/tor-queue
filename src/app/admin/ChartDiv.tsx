@@ -64,6 +64,7 @@ export default function ChartDiv() {
 
         <div className="bg-white rounded-lg">
           <Chart
+            // @ts-ignore
             options={donutlist.options}
             series={donutlist.series}
             type="pie"

@@ -38,7 +38,7 @@ export default function QueuePageNavBar() {
         >
           <FontAwesomeIcon icon={faCamera} className="mr-2" />
           เปิดกล้อง
-        </Link>
+        </Link> {/* @ts-ignore */}
         {session?.user.role==="admin" ? 
           (< Link
             href="/admin/q"
