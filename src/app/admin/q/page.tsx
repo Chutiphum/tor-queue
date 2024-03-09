@@ -1,6 +1,8 @@
 import { getAllRooms } from '@/db/room'
 import ShopList from './ShopList'
 
+export const dynamic = 'force-dynamic'
+
 export default async function Page() {
   const data = await getAllRooms()
 
