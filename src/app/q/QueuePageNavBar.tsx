@@ -39,12 +39,14 @@ export default function QueuePageNavBar() {
           <FontAwesomeIcon icon={faCamera} className="mr-2" />
           เปิดกล้อง
         </Link>
-        <Link
-          href="/admin"
-          className="text-2xl rounded-xl bg-secondary text-black p-3 text-center"
-        >
-          หน้าแอดมิน
-        </Link>
+        {session?.user.role==="admin" ? 
+          (< Link
+            href="/admin/q"
+            className="text-2xl rounded-xl bg-secondary text-black p-3 text-center"
+          >
+            หน้าแอดมิน
+          </Link>):null
+        }
         <button
           onClick={() => signOut()}
           className="text-2xl rounded-xl bg-red-500 text-white p-3 text-center"
@@ -52,6 +54,6 @@ export default function QueuePageNavBar() {
           ลงชื่อออก
         </button>
       </div>
-    </div>
+    </div >
   )
 }

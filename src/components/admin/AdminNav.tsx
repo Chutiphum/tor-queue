@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 
 const navItems = [
-  { name: 'หน้าหลักแอดมิน', href: '/admin' },
+  // { name: 'หน้าหลักแอดมิน', href: '/admin' },
   { name: 'จัดการร้านของตนเอง', href: '/admin/q' },
   { name: 'จัดการผู้ใช้', href: '/admin/users' },
 ]

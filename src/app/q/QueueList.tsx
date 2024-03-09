@@ -24,11 +24,12 @@ export default function QueueList() {
           setQueues(res.data)
         })
     }
-  })
+  }, [session])
+
   useEffect(() => {
     // @ts-ignore
     setSearchedList(queues.filter(i => i.room.title.includes(keyword)))
-  }, [queues, keyword])
+  }, [keyword])
 
   return (
     <main className="space-y-4 max-w-[600px]">

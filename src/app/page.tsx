@@ -13,7 +13,7 @@ export default function Home() {
       <div className="lg:w-full lg:h-screen text-black p-16 text-4xl space-y-8 lg:flex lg:flex-col lg:justify-center">
         <p>ต่อคิว</p>
         <p>
-          โปรเข้าสู่ระบบ
+          โปรดเข้าสู่ระบบเพื่อใช้งาน
         </p>
       </div>
     </main>

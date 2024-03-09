@@ -1,10 +1,14 @@
+'use client'
+
 import ChartDiv from './ChartDiv'
+import { useRouter } from 'next/navigation'
 
 export default function Page() {
+  const router = useRouter();
+  router.replace('/admin/q')
+
   return (
-    <main className="h-fit w-full overflow-hidden">
-      <h1 className="text-6xl mb-4">หน้าหลักแอดมิน</h1>
-      <ChartDiv />
-    </main>
+    <div>
+    </div>
   )
 }
