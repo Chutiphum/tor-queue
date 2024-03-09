@@ -13,27 +13,12 @@ export async function getAllUsers() {
     }
 }
 
-export async function updateUser(uId: number) {
+export async function updateRoleAdmin(uId: number) {
     try {
-        // Fetch the current role of the user
-        const user = await prisma.user.findUnique({
-            where: { uId: uId }
-        });
-
-        if (!user) {
-            throw new Error("User not found");
-        }
-
-        // Determine the new role based on the current role
-        let newRole: "admin" | "user" = "user"; // Default to "user"
-        if (user.role === "user") {
-            newRole = "admin";
-        }
-
-        // Update the user's role
+        // Update the user's role to "admin"
         const res = await prisma.user.updateMany({
             where: { uId: uId },
-            data: { role: newRole }
+            data: { role: "admin" }
         });
 
         return res;
@@ -43,6 +28,25 @@ export async function updateUser(uId: number) {
         await prisma.$disconnect();
     }
 }
+
+
+export async function updateRoleUser(uId: number) {
+    try {
+        // Update the user's role to "admin"
+        const res = await prisma.user.updateMany({
+            where: { uId: uId },
+            data: { role: "user" }
+        });
+
+        return res;
+    } catch (err) {
+        throw err;
+    } finally {
+        await prisma.$disconnect();
+    }
+}
+
+
 
 export async function deleteUser(uId: number) {
     try {
@@ -58,4 +62,3 @@ export async function deleteUser(uId: number) {
         await prisma.$disconnect()
     }
 }
-
