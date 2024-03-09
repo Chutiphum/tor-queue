@@ -24,63 +24,63 @@ export default function Main({ data }: { data: User[] }) {
 
 
     const handleSwitchToUser = async (uId: any) => {
-        if (confirm(`คุณต้องการลบคิวของ หรือไม่`)) {
-          axios
-            .put(
-              process.env.NEXT_PUBLIC_SERVER_URL +
-                '/api/user/updateToUser?id=' +
-                uId
-            )
-            .then(res => {
-                setSelectedUser(null);
-            })
-            .catch(err => {
-              alert(err)
-              console.log(err)
-            })
+        if (confirm(`ต้องการเปลี่ยน Role ของ ${selectedUser?.email} เป็น User ใช่ไหหรือไม่`)) {
+            axios
+                .put(
+                    process.env.NEXT_PUBLIC_SERVER_URL +
+                    '/api/user/updateToUser?id=' +
+                    uId
+                )
+                .then(res => {
+                    setSelectedUser(null);
+                })
+                .catch(err => {
+                    alert(err)
+                    console.log(err)
+                })
         }
-      }
+    }
 
-      const handleSwitchToAdmin = async (uId: any) => {
-        if (confirm(`คุณต้องการลบคิวของ หรือไม่`)) {
-          axios
-            .put(
-              process.env.NEXT_PUBLIC_SERVER_URL +
-                '/api/user/updateToAdmin?id=' +
-                uId
-            )
-            .then(res => {
-                setSelectedUser(null);
-            })
-            .catch(err => {
-              alert(err)
-              console.log(err)
-            })
+    const handleSwitchToAdmin = async (uId: any) => {
+        if (confirm(`ต้องการเปลี่ยน Role ของ ${selectedUser?.email} เป็น Admin ใช่ไหหรือไม่`)) {
+            axios
+                .put(
+                    process.env.NEXT_PUBLIC_SERVER_URL +
+                    '/api/user/updateToAdmin?id=' +
+                    uId
+                )
+                .then(res => {
+                    setSelectedUser(null);
+                })
+                .catch(err => {
+                    alert(err)
+                    console.log(err)
+                })
         }
-      }
-    
+    }
+
 
     const handleDeleteUser = async (uId: any) => {
-        if (confirm(`คุณต้องการลบคิวของ หรือไม่`)) {
-          axios
-            .delete(
-              process.env.NEXT_PUBLIC_SERVER_URL +
-                '/api/user/deleteUser?id=' +
-                uId
-            )
-            .then(res => {
-                setSelectedUser(null);
-            })
-            .catch(err => {
-              alert(err)
-              console.log(err)
-            })
+        if (confirm(`คุณต้องการลบผูใช้ Email : ${selectedUser?.email} หรือไม่`)) {
+            axios
+                .delete(
+                    process.env.NEXT_PUBLIC_SERVER_URL +
+                    '/api/user/deleteUser?id=' +
+                    uId
+                )
+                .then(res => {
+                    setSelectedUser(null);
+                })
+                .catch(err => {
+                    alert(err)
+                    console.log(err)
+                })
         }
-      }
+    }
 
-    
 
-      return (
+
+    return (
         <div>
             <h1 className="text-6xl">จัดการผู้ใช้ทั้งหมดในระบบ</h1>
             <div className="mt-8"></div>
@@ -136,12 +136,10 @@ export default function Main({ data }: { data: User[] }) {
                         <p>UserID : {selectedUser.uId}</p>
                         <p>Role : {selectedUser.role}</p>
                         <div className='flex'>
-                            
+
                         </div>
                         <div className='flex'>
-                            <button className="mt-4 bg-primary rounded-md pt-2 pb-2 pl-4 pr-4 text-xl" onClick={() => handleSwitchToAdmin(selectedUser.uId)}>admin</button>
-                        </div>
-                        <div className='flex'>
+                            <button className="mt-4 bg-primary rounded-md pt-2 pb-2 pl-4 pr-4 text-xl mr-4" onClick={() => handleSwitchToAdmin(selectedUser.uId)}>admin</button>
                             <button className="mt-4 bg-primary rounded-md pt-2 pb-2 pl-4 pr-4 text-xl" onClick={() => handleSwitchToUser(selectedUser.uId)}>user</button>
                         </div>
                         <div className='flex'>
