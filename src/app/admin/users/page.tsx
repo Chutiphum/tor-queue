@@ -1,19 +1,12 @@
-'use client'
-
 import React, { useEffect, useState } from 'react'
 import Main from './_components/main'
 import axios from 'axios'
+import { getAllUsers } from '@/db/user'
 
-export default function Page() {
-    const [data, setData] = useState([])
+export const dynamic = 'force-dynamic'
 
-    axios.get(process.env.NEXT_PUBLIC_SERVER_URL + '/api/users').then(res => {
-        setData(res.data)
-    })
-
-    if (!data) {
-        return <p>loading...</p>
-    }
+export default async function Page() {
+    const data = await getAllUsers()
 
     return (
         <div>
