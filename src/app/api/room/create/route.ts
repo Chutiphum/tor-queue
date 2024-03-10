@@ -26,6 +26,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
   //     status: 400,
   //   })
   // }
+  // @ts-ignore
   const image = await uploadFile('tor-queue-dev', 'images/', file)
   const imgPublicPath = await getPublicURL('tor-queue-dev', image)
 
