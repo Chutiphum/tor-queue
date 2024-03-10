@@ -18,7 +18,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
   //   })
   // }
 
-  // const file = formData.get('image')
+  const file = formData.get('image')
   // if (!(file instanceof File)) {
   //   return new Response(JSON.stringify({
   //     message: 'The data received is in the wrong format.'
