@@ -7,25 +7,25 @@ import { getPublicURL, uploadFile } from "@/supabase/storage";
 export async function POST(request: NextRequest, response: NextResponse) {
   const formData = await request.formData()
 
-  try {
-    roomSchemaFormData.parse(formData)
-  } catch (err) {
-    console.error(err)
-    return new Response(JSON.stringify({
-      message: 'The data received is in the wrong format.', err
-    }), {
-      status: 400,
-    })
-  }
+  // try {
+  //   roomSchemaFormData.parse(formData)
+  // } catch (err) {
+  //   console.error(err)
+  //   return new Response(JSON.stringify({
+  //     message: 'The data received is in the wrong format.', err
+  //   }), {
+  //     status: 400,
+  //   })
+  // }
 
-  const file = formData.get('image')
-  if (!(file instanceof File)) {
-    return new Response(JSON.stringify({
-      message: 'The data received is in the wrong format.'
-    }), {
-      status: 400,
-    })
-  }
+  // const file = formData.get('image')
+  // if (!(file instanceof File)) {
+  //   return new Response(JSON.stringify({
+  //     message: 'The data received is in the wrong format.'
+  //   }), {
+  //     status: 400,
+  //   })
+  // }
   const image = await uploadFile('tor-queue-dev', 'images/', file)
   const imgPublicPath = await getPublicURL('tor-queue-dev', image)
 
