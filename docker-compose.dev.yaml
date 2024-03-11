@@ -1,9 +1,0 @@
-version: "3.7"
-services:
-  web:
-    command: npm run dev
-    container_name: tor-queue-dev
-    volumes:
-      - ./:/app
-      - /app/node_modules
-      - /app/.next
