@@ -1,9 +1,0 @@
-version: "3.7"
-services:
-  web:
-    command: npm run start
-    container_name: next-docker-prod
-    volumes:
-      - ./:/app
-      - /app/node_modules
-      - /app/.next
