@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# เว็บต่อคิว - Tor Queue
 
-## Getting Started
+## ความเป็นมาของปัญหา
+เนื่องจากการต่อคิวตามร้านค้าในแทบจะทุกร้านค้าจะใช้ระบบคิวซึ่งอยู่ในรูปแบบของกระดาษ ซึ่งต้องมีการใช้งบประมาณในส่วนของกระดาษและการปริ้นเพื่อได้มาเป็นในรูปแบบของบัตรคิว และในการจัดการเกี่ยวกับคิวนั้นก็ต้องมีการเรียกและ นับตามบัตรคิวอีกซึ่งทำให้เกิดความล่าช้าของการตรวจบัตรคิว ซึ่งอาจส่งผลให้ลูกค้าที่ต่อคิวเกิดความไม่พอใจต่อร้านค้าได้ ทางผู้จัดทำจึงได้คิดเว็บต่อคิว เพื่อแก้ปัญหานี้ขึ้นมา
 
-First, run the development server:
+## วัตถุประสงค์
+1. เพื่อศึกษาวิธีการสร้างเว็บไซต์โดย Next.js ร่วมกับการใช้ Google Cloud และ Docker ในการเปิดใช้งานเว็บไซต์ให้ผู้ใช้สามารถเข้ามาใช้งานได้ และ การใช้งานคลังเก็บข้อมูลโดยมีวัตถุประสงค์หลักดังนี้
+2. เพื่อให้นักศึกษาสามารถประยุกต์ความรู้และทักษะที่ได้เรียนมาเพื่อแก้ปัญหาพัฒนาและจัดการเทคโนโลยีสารสนเทศที่เกิดขึ้นในสภาพที่เป็นจริงได้
+3. เพื่อให้เกิดความรู้ความเข้าใจอย่างลึกซึ้งในวิชา SOFTWARE DEVELOPMENT TOOLS AND ENVIRONMENTS Project ที่ศึกษามากขึ้น
+4. เพื่อให้มีโอกาสแลกเปลี่ยนความรู้และประสบการณ์กับผู้ที่เกี่ยวข้องกับศาสตร์ด้านเทคโนโลยี สารสนเทศ
+5. เพื่อให้มีความรู้ความเข้าใจวิธีการศึกษาค้นคว้าและการนำเสนอผลงานวิชาการ
+6. เพื่อศึกษาเกี่ยวกับการทำงานระหว่างโค้ดกับ การใช้ Google Cloud และ Docker ในการทำงานกับตัวโปรแกรมที่สร้างขึ้น
+7. เพื่อค้นหาผิดพลาดที่เกิดขึ้นระหว่างกับทำงานของโปรแกรมกับตัว Google Cloud และ Docker
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## เทคโนโลโยที่ใช้
+- Next.js
+- Prisma
+- Google Cloud
+- Supabase
+- Docker
+
+## วิธีการรันเว็บไซต์
+1. Clone repository นี้ลงไปในเครื่อง
+```sh
+git clone https://github.com/Chutiphum/tor-queue.git
 ```
+2. ติดตั้ง Node dependencies ให้เรียบร้อย
+```sh
+npm install
+```
+3. เรียก Prisma ให้ generate ตัว Prisma Client
+```sh
+npx prisma generate
+```
+4. หาก databse ที่จะใช้ยังไม่มีตารางใดๆ ให้เรียก Prisma ให้สร้างตารางตาม schema ที่กำหนด
+> `DATABASE_URL` และ `DIRECT_URL` จะต้องตั้งไว้แล้วในไฟล์ `.env`
+```sh
+npx prisma migrate deploy
+```
+5. เลือกวิธีรันที่ต้องการ
+- หากต้องการรันเพื่อทดสอบด้วยคำสั่ง `npm run dev`
+- หากต้องการ build ตัวเว็บ ให้ใช้ `npm run build` แล้วจึง `npm run start`
+- หากต้องการรันด้วย docker ให้ใช้ `docker build -t tor-queue .`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## สมาชิกในกลุ่ม
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| ชื่อ | รหัสนักศึกษา |
+| -------- | -------- |
+| นาย ชุติภูมิ  โลกสถาพร	|	64070022 |
+| นาย ณัฐวุฒิ อุ่นวิเศษ	|		64070035 |
+| นาย ธนดล สุขเจริญ		|	64070041 |
+| นาย เปี่ยมเดช  ยศเงินทองฟู	| 64070066 |
+| นาย ชยุตรัฐ ศรีอุ้มสุข 	|		64070138 |
+| นาย ปุณณวิช สิทธิเสือ	|	64070189 |
